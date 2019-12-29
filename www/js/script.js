@@ -82,16 +82,16 @@ $(function() {
   function dataReceived(str) {
     console.log("Got data ", str);
     ++packets;
-    output += str;
-    if (output.endsWith("##\n")) {      
+    if (str.startsWith("##")) {      
       console.log("data done");
       if (expectCB) {
-        expectCB(output.substring(0, output.length-3));
+        expectCB(output);
         output = "";
         expectCB = "";
       }
     } else {
-      $(".output").html(packets);
+      output += str;
+      $(".output").html(packets + " " + str.length);
     }
   }
 
