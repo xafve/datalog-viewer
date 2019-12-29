@@ -1,3 +1,8 @@
+body, html { 
+  height: 100%;
+  overflow: hidden;
+} 
+
 .button { 
   border: 1px solid black;
   background: #feed14;
@@ -20,12 +25,13 @@
 .output { 
   min-height: 30px;
   border: 1px solid green;
-  text-align: center;
   padding: 10px;
   background: lightgreen;
   margin: 10px;
-  font-size: 25px;
+  font-size: 15px;
   border-radius: 20px;
+  max-height: 60%;
+  overflow: auto;
 }
 
 body { 

@@ -71,8 +71,26 @@
 
 $(function() {
 
+  var output;
+  var expectCB = null;
+
+  function expectData(cb) {
+    output = "";    
+    expectCB = cb;
+  }
   function dataReceived(str) {
-    $("#speed").html(str);
+    console.log("Got data ", str);
+    if (str.endsWith("##")) {      
+      console.log("data done");
+      output += str.substring(0, str.length-2);
+      if (expectCB) {
+        expectCB(output);
+        output = "";
+        expectCB = "";
+      }
+    } else {
+      output += str;
+    }
   }
 
   function dataFailure() {
@@ -85,6 +103,38 @@ $(function() {
     } else {
       console.log("Command", i);
       writeSuccess();
+      if (i === "0") {
+        setTimeout(function() {
+          dataReceived("Some data\n");
+          dataReceived("Some data\n");
+          dataReceived("Some data\n");
+          dataReceived("Some data\n");
+          dataReceived("Some data\n");
+          dataReceived("Some data\n");
+          dataReceived("Some data\n");
+          dataReceived("Some data\n");
+          dataReceived("Some data\n");
+          dataReceived("Some data\n");
+          dataReceived("Some data\n");
+          dataReceived("Some data\n");
+          dataReceived("Some data\n");
+          dataReceived("Some data\n");
+          dataReceived("Some data\n");
+          dataReceived("Some data\n");
+          dataReceived("Some data\n");
+          dataReceived("Some data\n");
+          dataReceived("Some data\n");
+          dataReceived("Some data\n");
+          dataReceived("Some data\n");
+          dataReceived("Some data\n");
+          dataReceived("Some data\n");
+          dataReceived("Some data\n");
+          dataReceived("Some data\n");
+          dataReceived("Some data\n");
+          dataReceived("Some data\n");
+          dataReceived("##");
+        })
+      }
     };   
   }
 
@@ -94,7 +144,6 @@ $(function() {
     $(".notconnected").hide();
     if (!!window.cordova) { 
       bluetoothSerial.subscribe('\n', dataReceived, dataFailure);
-      send('5');
     }
   }
 
@@ -111,21 +160,15 @@ $(function() {
     console.log("Write failure");
   }
 
-  $("#stop").click(function() {
+  $("#get-data").click(function() {
+    console.log("get-data");
+    expectData(function(data) {
+      console.log("Received: ", data);
+      $(".output").html(output.replace(/\n/g, "<br>"));
+    });
     send("0");
   });
 
-  $("#start").click(function() {
-    send("1");
-  });
-
-  $("#faster").click(function() {
-    send("2");
-  });
-
-  $("#slower").click(function() {
-    send("3");
-  });
 
   $("#disconnect").click(function() {
     if (!!window.cordova) {
@@ -155,7 +198,7 @@ $(function() {
       setTimeout(function() {
         throbber.close();        
         connectSuccess();
-      }, 1000);
+      }, 200);
     }
   }
   function connectionsloaded(connections) {
