@@ -80,9 +80,9 @@ $(function() {
   }
   function dataReceived(str) {
     console.log("Got data ", str);
-    if (str.endsWith("##")) {      
+    if (str.endsWith("##\n")) {      
       console.log("data done");
-      output += str.substring(0, str.length-2);
+      output += str.substring(0, str.length-3);
       if (expectCB) {
         expectCB(output);
         output = "";
@@ -133,7 +133,7 @@ $(function() {
           dataReceived("Some data\n");
           dataReceived("Some data\n");
           dataReceived("Some data\n");
-          dataReceived("##");
+          dataReceived("##\n");
         })
       }
     };   
