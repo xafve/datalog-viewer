@@ -73,6 +73,7 @@ $(function() {
 
   var output;
   var expectCB = null;
+  var packets = 0;
 
   function expectData(cb) {
     output = "";    
@@ -80,17 +81,17 @@ $(function() {
   }
   function dataReceived(str) {
     console.log("Got data ", str);
-    if (str.endsWith("##\n")) {      
+    ++packets;
+    output += str;
+    if (output.endsWith("##\n")) {      
       console.log("data done");
-      output += str.substring(0, str.length-3);
       if (expectCB) {
-        expectCB(output);
+        expectCB(output.substring(0, output.length-3));
         output = "";
         expectCB = "";
       }
     } else {
-      output += str;
-      $(".output").html(output.replace(/\n/g, "<br>"));
+      $(".output").html(packets);
     }
   }
 
