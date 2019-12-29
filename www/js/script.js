@@ -90,6 +90,7 @@ $(function() {
       }
     } else {
       output += str;
+      $(".output").html(output.replace(/\n/g, "<br>"));
     }
   }
 
@@ -164,7 +165,7 @@ $(function() {
     console.log("get-data");
     expectData(function(data) {
       console.log("Received: ", data);
-      $(".output").html(output.replace(/\n/g, "<br>"));
+      $(".output").html(data.replace(/\n/g, "<br>"));
     });
     send("0");
   });
