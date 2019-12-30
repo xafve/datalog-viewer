@@ -107,35 +107,26 @@ $(function() {
       writeSuccess();
       if (i === "0") {
         setTimeout(function() {
-          dataReceived("Some data\n");
-          dataReceived("Some data\n");
-          dataReceived("Some data\n");
-          dataReceived("Some data\n");
-          dataReceived("Some data\n");
-          dataReceived("Some data\n");
-          dataReceived("Some data\n");
-          dataReceived("Some data\n");
-          dataReceived("Some data\n");
-          dataReceived("Some data\n");
-          dataReceived("Some data\n");
-          dataReceived("Some data\n");
-          dataReceived("Some data\n");
-          dataReceived("Some data\n");
-          dataReceived("Some data\n");
-          dataReceived("Some data\n");
-          dataReceived("Some data\n");
-          dataReceived("Some data\n");
-          dataReceived("Some data\n");
-          dataReceived("Some data\n");
-          dataReceived("Some data\n");
-          dataReceived("Some data\n");
-          dataReceived("Some data\n");
-          dataReceived("Some data\n");
-          dataReceived("Some data\n");
-          dataReceived("Some data\n");
-          dataReceived("Some data\n");
+          dataReceived("1577653028,nan,nam\n");
+          dataReceived("1577653031,nan,nam\n");
+          dataReceived("1577653091,21.60,46.30\n");
+          dataReceived("1577653191,21.80,44.30\n");
+          dataReceived("1577654091,20.60,43.30\n");
+          dataReceived("1577655091,19.60,42.30\n");
+          dataReceived("1577663091,nan,nan\n");
+          dataReceived("1577853091,22.60,40.30\n");
           dataReceived("##\n");
         })
+      } else if (i === "1") {
+        setTimeout(function() {
+          dataReceived("Time,Temp(C),Humidity(%)\n");
+          dataReceived("##\n");
+        });
+      } else if (i === "2") {
+        setTimeout(function() {
+          dataReceived("1577853091,22.60,40.30\n");
+          dataReceived("##\n");
+        });
       }
     };   
   }
@@ -169,6 +160,24 @@ $(function() {
       $(".output").html(data.replace(/\n/g, "<br>"));
     });
     send("0");
+  });
+
+  $("#get-names").click(function() {
+    console.log("get-data");
+    expectData(function(data) {
+      console.log("Received: ", data);
+      $(".output").html(data.replace(/\n/g, "<br>"));
+    });
+    send("1");
+  });
+
+  $("#get-current-values").click(function() {
+    console.log("get-data");
+    expectData(function(data) {
+      console.log("Received: ", data);
+      $(".output").html(data.replace(/\n/g, "<br>"));
+    });
+    send("2");
   });
 
 
