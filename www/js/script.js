@@ -143,6 +143,7 @@ $(function() {
   function connectFailed() {
     console.log("bluetooth connect failed");
     alert("connect failed");
+    disconnect();
   }
 
   function writeSuccess() {
@@ -181,7 +182,7 @@ $(function() {
   });
 
 
-  $("#disconnect").click(function() {
+  function disconnect() {
     if (!!window.cordova) {
       console.log("bluetooth disconnect");
       bluetoothSerial.unsubscribe();
@@ -190,7 +191,9 @@ $(function() {
     $(".connected").hide();
     $(".notconnected").show();
     $("#connectionlist").html("");
-  });
+  }
+
+  $("#disconnect").click(disconnect);
 
   function startConnection(id) {
     console.log("starting connection", id);
